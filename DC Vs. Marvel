@@ -1,0 +1,48 @@
+import numpy as np
+from matplotlib import pyplot as pp
+import pandas as pd
+from pandas import DataFrame as df
+
+#Import des tables dc et marvel
+dc = pd.read_csv(r'C:\Users\PC de Charles\Documents\Python Scripts\python\Marvel VS DC\dc-wikia-data.csv')
+marvel = pd.read_csv(r'C:\Users\PC de Charles\Documents\Python Scripts\python\Marvel VS DC\marvel-wikia-data.csv')
+#uniformisation des noms de la colonne Year sur les deux tables
+dc = dc.rename (columns={"YEAR":"Year_origin"})
+marvel = marvel.rename (columns={"Year":"Year_origin"})
+dc.head
+marvel.head
+
+#Selectionner seulement les 50 héros les plus présent dans chaque licence
+marvel_top50 = marvel.sort_values(['APPEARANCES'], ascending=False).head(50)
+dc_top50 = dc.sort_values(['APPEARANCES'], ascending=False).head(50)
+names50_marvel = marvel_top50.name
+names50_dc = dc_top50.name
+app_marvel = marvel_top50.APPEARANCES
+app_dc = dc_top50.APPEARANCES
+
+#Racourcisssement de la liste à 20 entités
+marvel_top20 = marvel.sort_values(['APPEARANCES'], ascending=False).head(20)
+dc_top20 = dc.sort_values(['APPEARANCES'], ascending=False).head(20)
+names20_marvel = marvel_top20.name
+names20_dc = dc_top20.name
+app20_marvel = marvel_top20.APPEARANCES
+app20_dc = dc_top20.APPEARANCES
+
+#barplot des 20 héros les plus populaires de DC et Marvel en fonction de leur taux d'apparition dans les comics
+pp.bar(names20_dc,dc_top20.APPEARANCES)
+pp.bar(names20_marvel,marvel_top20.APPEARANCES)
+pp.xlabel("Héros (DC en bleu, Marvel en orange)")
+pp.ylabel("Apparition dans les comics")
+pp.title("Marvel vs DC en terme de présence dans les comics")
+
+#scatterplot de la représentation des héros marvel en fonction de leurs années de création
+pp.scatter(Fap20_dc,app20_dc)
+pp.xlabel("Année de création du héros DC")
+pp.ylabel("Apparition dans les comics")
+pp.title("Répartition des héros les plus populaires de marvel en fonction de leur année de création")
+
+#scatterplot de la reeprésentation des héros marvel en fonction de leurs années de création
+pp.scatter(Fap20_marvel,app20_marvel)
+pp.xlabel("Année de création du héros Marvel")
+pp.ylabel("Apparition dans les comics")
+pp.title("Répartition des héros les plus populaires de marvel en fonction de leur année de création")
